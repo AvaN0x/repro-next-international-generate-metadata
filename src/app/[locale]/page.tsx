@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { getI18n } from "~/locales/server";
 import { setStaticParamsLocale } from "next-international/server";
 import LocaleButton from "~/app/[locale]/LocaleButton";
