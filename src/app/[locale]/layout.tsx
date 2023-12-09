@@ -2,12 +2,21 @@ import { Inter } from "next/font/google";
 import { Providers } from "~/app/[locale]/providers";
 import { getI18n, getStaticParams } from "~/locales/server";
 import type { LocaleCode } from "~/locales/server";
-import { locales } from "~/locales/shared";
+import { fallbackLocale, locales } from "~/locales/shared";
 import { notFound } from "next/navigation";
+import { setStaticParamsLocale } from "next-international/server";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const generateMetadata = async () => {
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { locale: LocaleCode };
+}) => {
+  setStaticParamsLocale(
+    locales.includes(params.locale) ? params.locale : fallbackLocale
+  );
+
   const t = await getI18n();
 
   // To easily test without getI18n, you can use this instead:
